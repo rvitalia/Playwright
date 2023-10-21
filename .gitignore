@@ -4,3 +4,7 @@ node_modules/
 /playwright/.cache/
 gulpfile.js
 tests
+e2e/desktopmain.spec.js-snapshots
+e2e/desktopnews.spec.js-snapshots
+e2e/mobilemain.spec.js-snapshots
+e2e/mobilenews.spec.js-snapshots

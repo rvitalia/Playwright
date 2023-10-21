@@ -7,7 +7,7 @@ const iPhone11Pro = devices['iPhone 11 Pro'];
 test.describe.configure({ timeout: 250000 });
 test('desktop test ', async ({ browser }) => {
   const context = await browser.newContext();
-  const url = 'https://abrosko-studio.ru/';
+  const url = 'https://abrosko-studio.ru/news/';
   const page = await context.newPage();//открываем страницу
   await page.goto(url);
   // await page.waitForSelector('.activesmall');
@@ -21,12 +21,16 @@ test('desktop test ', async ({ browser }) => {
   // Проверяем, чтобы страница имела в заголовке Playwright
   await expect(page).toHaveTitle(/ABrosko/);
   //проверрем фреймы
-  const arrayClasses = ['.section__top', '.stages', 'services', '.stack', '.slider', 'header', 'footer'];
+  const arrayClasses = ['.news', '.header', '.footer'];
   for (const iterator of arrayClasses) {
     const element = await page.$(iterator);
     const boundingBox = await element?.boundingBox();
     await expect(page).toHaveScreenshot({ fullPage: true, clip: boundingBox, timeout: 20000 });
+    // сменяем активный таб
+    await page.getByRole('button', { name: 'Short news' }).click();
+    await expect(page).toHaveScreenshot({ fullPage: true, clip: boundingBox, timeout: 20000 });
   }
+
   //закрываем контекст и браузер
   await context.close();
   await browser.close();
